@@ -2,7 +2,8 @@ from django.shortcuts import render
 from .models import Book  # Assuming you have a Book model
 from django.shortcuts import render, get_object_or_404
 from .models import Library
-
+from django.views.generic.detail import DetailView
+from .models import Library
 
 def list_books(request):
     # Query the database for all books
@@ -19,3 +20,10 @@ def library_detail(request, library_id):
     
     # Render the library_detail.html template with the library context
     return render(request, 'relationship_app/library_detail.html', {'library': library})
+
+# relationship_app/views.py
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/library_detail.html'
+    context_object_name = 'library'
