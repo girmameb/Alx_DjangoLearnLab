@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import permission_required
 from .models import Book
 from .forms import BookForm
 
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

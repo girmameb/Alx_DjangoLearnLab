@@ -6,6 +6,8 @@ from .views import register, list_books, LibraryDetailView
 from .views import register, login, logout
 from relationship_app import views
 from .views import admin_view, librarian_view, member_view
+from django.urls import path
+from .views import add_book, update_book, delete_book
 
 urlpatterns = [
    
@@ -25,9 +27,12 @@ path('registration/', views.register, name='register'),
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
 
 path('admin/', views.admin_view, name='admin_view'),
-path('librarian/', librarian_view, name='librarian_view'),
 path('member/', member_view, name='member_view'),
 path('admin/', admin_view, name='admin_view'),
 path('librarian/', views.librarian_view, name='librarian_view'),
 path('member/', member_view, name='member_view'),
+
+path('book/add/', add_book, name='add_book'),
+path('book/<int:pk>/edit/', update_book, name='update_book'),
+path('book/<int:pk>/delete/', delete_book, name='delete_book'),
 ]
