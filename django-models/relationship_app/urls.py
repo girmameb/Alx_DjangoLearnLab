@@ -12,7 +12,7 @@ urlpatterns = [
 
 
     # Registration view
-    path('register/', register, name='register'),
+    path('register/', register(template_name='register.html'), name='register'),
 
     # Books list view
     path('books/', list_books, name='list_books'),
