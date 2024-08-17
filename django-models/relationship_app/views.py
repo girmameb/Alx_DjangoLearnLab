@@ -13,7 +13,7 @@ def register(request):
             return redirect('home')  # Redirect to a home or any other page
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'relationship_app/register.html', {'form': form})
 
 def login(request):
     if request.method == 'POST':
