@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
 from .models import Library
+from django.contrib.auth import login
 
 def register(request):
     if request.method == 'POST':
