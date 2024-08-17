@@ -33,6 +33,22 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     role = models.TextChoices("Member","Admin")
     
+class Book(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
+    published_date = models.DateField()
+    isbn = models.CharField(max_length=13, unique=True)
+    pages = models.IntegerField()
+    cover = models.ImageField(upload_to='covers/', blank=True, null=True)
+    language = models.CharField(max_length=20)
+
+    class Meta:
+        permissions = [
+            ("can_add_book", "Can add book"),
+            ("can_change_book", "Can change book"),
+            ("can_delete_book", "Can delete book"),
+        ]
+    
     
     def __str__(self):
         return self.name
