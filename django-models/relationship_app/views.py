@@ -69,7 +69,7 @@ def add_book(request):
     else:
         form = BookForm()
 
-    return render(request, 'books/add_book.html', {'form': form})
+    return render(request, 'relationship_app/add_book.html', {'form': form})
 
 @permission_required('books.can_change_book', raise_exception=True)
 def update_book(request, pk):
@@ -82,7 +82,7 @@ def update_book(request, pk):
     else:
         form = BookForm(instance=book)
 
-    return render(request, 'books/update_book.html', {'form': form})
+    return render(request, 'relationship_app/update_book.html', {'form': form})
 
 @permission_required('books.can_delete_book', raise_exception=True)
 def delete_book(request, pk):
@@ -91,4 +91,4 @@ def delete_book(request, pk):
         book.delete()
         return redirect('book_list')  # Redirect to a list of books or another relevant page
 
-    return render(request, 'books/delete_book.html', {'book': book})
+    return render(request, 'relationship_app/delete_book.html', {'book': book})
