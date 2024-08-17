@@ -68,7 +68,7 @@ def add_book(request):
             return redirect('book_list')
     else:
         form = BookForm()
-    return render(request, 'relationship_app/add_book.html', {'form': form})
+    return render(request,'relationship_app/add_book.html', {'form': form})
 
 @permission_required('books.can_change_book', raise_exception=True)
 def update_book(request, pk):
