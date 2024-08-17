@@ -8,7 +8,7 @@ urlpatterns = [
     # URL pattern for user login with a custom template
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
 
-    # URL pattern for user logout, redirecting to login page after logout
+    # URL pattern for user logout, optionally with a custom template
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 
     # URL pattern for user registration
