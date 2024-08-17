@@ -10,7 +10,9 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            # Optionally log the user in after registration
+            auth_login(request, user)
             return redirect('login')  # Redirect to login page after successful registration
     else:
         form = UserCreationForm()
@@ -20,3 +22,5 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
+
+
