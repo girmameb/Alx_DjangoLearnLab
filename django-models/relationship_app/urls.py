@@ -3,8 +3,10 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import register, list_books, LibraryDetailView
+from .views import register, login, logout
 
 urlpatterns = [
+   
     # Login view with a custom template
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
 
