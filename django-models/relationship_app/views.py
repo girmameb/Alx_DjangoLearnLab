@@ -15,9 +15,13 @@ def register(request):
             return redirect('list_books')
     else:
         form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
+class RegisterView(DetailView):
+    model = Library
+    template_name = 'relationship_app/register.html'
+    context_object_name = 'register'
