@@ -1,21 +1,20 @@
-# relationship_app/urls.py
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import list_books, LibraryDetailView, register
+from .views import register, list_books, LibraryDetailView
 
 urlpatterns = [
-    # URL pattern for user login with a custom template
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name ='login'),
+    # Login view with a custom template
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
 
-    # URL pattern for user logout, optionally with a custom template
-    path('logout/', auth_views.LogoutView.as_view (next_page = 'login'), name ='logout'),
+    # Logout view with redirect to login page
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 
-    # URL pattern for user registration
+    # Registration view
     path('register/', register, name='register'),
 
-    # URL pattern for listing books
+    # Books list view
     path('books/', list_books, name='list_books'),
 
-    # URL pattern for library detail view
+    # Library detail view
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
 ]
