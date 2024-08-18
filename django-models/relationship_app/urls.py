@@ -32,7 +32,7 @@ path('admin/', admin_view, name='admin_view'),
 path('librarian/', views.librarian_view, name='librarian_view'),
 path('member/', member_view, name='member_view'),
 
-path('book/add/', add_book, name='add_book'),
-path('book/<int:pk>/edit/', update_book, name='update_book'),
+path('add_book/', add_book, name='add_book'),
+path('update_book/<int:pk>/edit/', update_book, name='update_book'),
 path('book/<int:pk>/delete/', delete_book, name='delete_book'),
 ]
