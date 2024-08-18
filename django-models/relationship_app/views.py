@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import permission_required
+
 from .models import Book
 from .forms import BookForm
 
@@ -31,6 +31,8 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return render(request, 'logout.html')
+
+from django.contrib.auth.decorators import permission_required
 
 @permission_required('books.can_add_book', raise_exception=True)
 def add_book(request):
