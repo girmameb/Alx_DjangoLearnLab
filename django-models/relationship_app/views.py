@@ -34,7 +34,7 @@ def logout(request):
 
 from django.contrib.auth.decorators import permission_required
 
-@permission_required('books.can_add_book')
+@permission_required('relationship_app.can_add_book')
 def add_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST, request.FILES)
