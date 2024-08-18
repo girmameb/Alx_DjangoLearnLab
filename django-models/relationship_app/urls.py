@@ -33,6 +33,6 @@ path('librarian/', views.librarian_view, name='librarian_view'),
 path('member/', member_view, name='member_view'),
 
 path('add_book/', add_book, name='add_book'),
-path('edit_book/<int:pk>/edit/', views.edit_book, name='edit_book'),
-path('delete_book/<int:pk>/delete/', views.delete_book, name='delete_book'),
+path('edit_book/<int:pk>edit/', views.edit_book, name='edit_book'),
+path('delete_book/<int:pk>delete/', views.delete_book, name='delete_book'),
 ]
