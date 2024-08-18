@@ -34,7 +34,7 @@ def logout(request):
 
 from django.contrib.auth.decorators import permission_required
 
-@permission_required('books.can_add_book', raise_exception=True)
+@permission_required('books.can_add_book')
 def add_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST, request.FILES)
@@ -45,7 +45,7 @@ def add_book(request):
         form = BookForm()
     return render(request, 'relationship_app/add_book.html', {'form': form})
 
-@permission_required('books.can_change_book', raise_exception=True)
+@permission_required('books.can_change_book')
 def update_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
@@ -57,7 +57,7 @@ def update_book(request, pk):
         form = BookForm(instance=book)
     return render(request, 'relationship_app/update_book.html', {'form': form})
 
-@permission_required('books.can_delete_book', raise_exception=True)
+@permission_required('books.can_delete_book')
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
