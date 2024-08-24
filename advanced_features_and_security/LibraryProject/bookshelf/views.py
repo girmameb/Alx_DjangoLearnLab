@@ -4,31 +4,35 @@ from django.contrib.auth.decorators import permission_required
 from .models import Book
 
 @permission_required('bookshelf.can_view', raise_exception=True)
-def view_article(request, article_id):
-    article = get_object_or_404(Book, id=article_id)
-    return render(request, 'bookshelf/Book_detail.html', {'article': article})
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'book_list.html', {'books': books})
+
 
 @permission_required('bookshelf.can_create', raise_exception=True)
-def create_article(request):
+def book_create(request):
     if request.method == 'POST':
         # Handle form submission
-        # Save the new article
-        return redirect('Book_list')
-    return render(request, 'bookshelf/Book_form.html')
+        pass
+    return render(request, 'book_form.html')
 
 @permission_required('bookshelf.can_edit', raise_exception=True)
-def edit_article(request, book_id):
-    article = get_object_or_404(Book, id=book_id)
+def book_edit(request, pk):
+    book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
         # Handle form submission
-        # Update the article
-        return redirect('book_detail', book_id = Book.id)
-    return render(request, 'bookshelf/article_form.html', {'article': article})
+        pass
+    return render(request, 'book_form.html', {'book': book})
 
 @permission_required('bookshelf.can_delete', raise_exception=True)
-def delete_article(request, article_id):
-    article = get_object_or_404(Book, id=article_id)
+def book_delete(request, pk):
+    book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
-        article.delete()
+        book.delete()
         return redirect('book_list')
-    return render(request, 'bookshelf/book_confirm_delete.html', {'book': article})
+    return render(request, 'book_confirm_delete.html', {'book': book})
+def search_books(request):
+    query = request.GET.get('q', '')
+    # Safe query using Django ORM
+    books = Book.objects.filter(title__icontains=query)
+    return render(request, 'bookshelf/book_list.html', {'books': books})
