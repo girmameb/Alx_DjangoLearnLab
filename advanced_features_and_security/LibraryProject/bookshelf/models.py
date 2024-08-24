@@ -27,3 +27,21 @@ class CustomUserManager(BaseUserManager):
         #extra_fields.setdefault('is_staff', True)
         # extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password)
+from django.db import models
+from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
+
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        permissions = [
+            ("can_view", _("Can view article")),
+            ("can_create", _("Can create article")),
+            ("can_edit", _("Can edit article")),
+            ("can_delete", _("Can delete article")),
+        ]
