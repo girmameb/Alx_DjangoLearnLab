@@ -9,7 +9,7 @@ from .forms import BookForm
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
     books = Book.objects.all()
-    return render(request, 'book_list.html', {'books': books})
+    return render(request, 'Template/book_list.html', {'books': books})
 
 
 @permission_required('bookshelf.can_create', raise_exception=True)
@@ -21,7 +21,8 @@ def book_create(request):
             return redirect('book_list')
     else:
         form = BookForm()
-    return render(request, 'bookshelf/form_example.html', {'form': form})
+    return render(request, 'Template/form_example.html', {'form': form})
+
 
 @permission_required('bookshelf.can_edit', raise_exception=True)
 def book_edit(request, pk):
@@ -44,11 +45,12 @@ def book_delete(request, pk):
         return redirect('book_list')
     return render(request, 'bookshelf/book_confirm_delete.html', {'book': book})
 
+
 def search_books(request):
     query = request.GET.get('q', '')
     # Safe query using Django ORM
     books = Book.objects.filter(title__icontains=query)
-    return render(request, 'bookshelf/book_list.html', {'books': books})
+    return render(request, 'Template/book_list.html', {'books': books})
 
 from django.http import HttpResponse
 from django.utils.deprecation import MiddlewareMixin
