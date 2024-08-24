@@ -1,25 +1,32 @@
 # advanced_features_and_security/settings.py
 # LibraryProject/settings.py
+# settings.py
+import MIDDLEWARE
 
-# Enable browser-side XSS filter
+# Set DEBUG to False in production
+DEBUG = False
+
+# Security settings
 SECURE_BROWSER_XSS_FILTER = True
-
-# Prevent clickjacking attacks
 X_FRAME_OPTIONS = 'DENY'
-
-# Prevent browsers from sniffing MIME types
 SECURE_CONTENT_TYPE_NOSNIFF = True
-
-# Ensure cookies are only sent over HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
-# Ensure your site is served over HTTPS
+# Ensure HTTPS is used
 SECURE_SSL_REDIRECT = True
 
-# HSTS (HTTP Strict Transport Security) settings
-SECURE_HSTS_SECONDS = 31536000  # 1 year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+# settings.py
+
+INSTALLED_APPS += ['csp']
+MIDDLEWARE += ['csp.middleware.CSPMiddleware']
+
+# Define CSP settings
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')
+CSP_IMG_SRC = ("'self'", 'data:')
+CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
+
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
