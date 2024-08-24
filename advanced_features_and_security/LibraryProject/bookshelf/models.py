@@ -31,12 +31,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
-class Article(models.Model):
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    publication_date = models.DateField()
+    isbn = models.CharField(max_length=13, unique=True)
+    cover_image = models.ImageField(upload_to='book_covers/', null=True, blank=True)
 
     class Meta:
         permissions = [
