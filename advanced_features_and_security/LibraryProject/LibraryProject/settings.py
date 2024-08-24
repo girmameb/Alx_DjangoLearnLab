@@ -28,5 +28,34 @@ CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')
 CSP_IMG_SRC = ("'self'", 'data:')
 CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
 
+# settings.py
+
+# Enforce HTTPS by redirecting all non-HTTPS requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Enable HTTP Strict Transport Security (HSTS) for one year (31536000 seconds)
+SECURE_HSTS_SECONDS = 31536000
+
+# Include all subdomains in the HSTS policy
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allow preloading of the HSTS policy
+SECURE_HSTS_PRELOAD = True
+
+# Ensure session cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Ensure CSRF cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Prevent your site from being framed to protect against clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from MIME-sniffing a response away from the declared content-type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable the browser’s XSS filtering to help prevent cross-site scripting attacks
+SECURE_BROWSER_XSS_FILTER = True
+
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
