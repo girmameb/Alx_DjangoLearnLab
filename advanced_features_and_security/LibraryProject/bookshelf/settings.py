@@ -1,4 +1,4 @@
 INSTALLED_APPS = [
-    ...
-    'bookshelf',
+
+    'bookshelf.Customer',
 ]
