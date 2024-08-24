@@ -28,7 +28,8 @@ CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')
 CSP_IMG_SRC = ("'self'", 'data:')
 CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
 
-# settings.py
+# Configure Django to trust the X-Forwarded-Proto header
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Enforce HTTPS by redirecting all non-HTTPS requests to HTTPS
 SECURE_SSL_REDIRECT = True
