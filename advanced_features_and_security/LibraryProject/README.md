@@ -18,3 +18,23 @@ Permissions are enforced in views using the `@permission_required` decorator:
 - `book_create`: Requires `can_create_book`.
 - `book_edit`: Requires `can_edit_book`.
 - `book_delete`: Requires `can_delete_book`.
+
+# Security Measures Implemented
+
+## Security Settings
+- **DEBUG**: Set to `False` in production.
+- **SECURE_BROWSER_XSS_FILTER**: Enabled to protect against XSS.
+- **X_FRAME_OPTIONS**: Set to `DENY` to prevent clickjacking.
+- **SECURE_CONTENT_TYPE_NOSNIFF**: Enabled to prevent MIME type sniffing.
+- **CSRF_COOKIE_SECURE** and **SESSION_COOKIE_SECURE**: Set to `True` to enforce HTTPS for cookies.
+- **SECURE_SSL_REDIRECT**: Redirects HTTP to HTTPS.
+
+## CSRF Protection
+- All forms include `{% csrf_token %}` to protect against CSRF attacks.
+
+## SQL Injection Protection
+- Used Django ORM for database queries.
+- Validated and sanitized user inputs using Django forms.
+
+## Content Security Policy
+- Implemented CSP with `django-csp` middleware to mitigate XSS risks.

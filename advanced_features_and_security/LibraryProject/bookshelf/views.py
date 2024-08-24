@@ -2,6 +2,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Book
+from django.db.models import Q
+from django.contrib.auth.decorators import permission_required
+from .forms import BookForm
 
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
@@ -12,25 +15,35 @@ def book_list(request):
 @permission_required('bookshelf.can_create', raise_exception=True)
 def book_create(request):
     if request.method == 'POST':
-        # Handle form submission
-        pass
-    return render(request, 'book_form.html')
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm()
+    return render(request, 'bookshelf/form_example.html', {'form': form})
 
 @permission_required('bookshelf.can_edit', raise_exception=True)
 def book_edit(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
-        # Handle form submission
-        pass
-    return render(request, 'book_form.html', {'book': book})
-
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm(instance=book)
+    return render(request, 'bookshelf/form_example.html', {'form': form})
 @permission_required('bookshelf.can_delete', raise_exception=True)
+
+
 def book_delete(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
         book.delete()
         return redirect('book_list')
-    return render(request, 'book_confirm_delete.html', {'book': book})
+    return render(request, 'bookshelf/book_confirm_delete.html', {'book': book})
+
 def search_books(request):
     query = request.GET.get('q', '')
     # Safe query using Django ORM
