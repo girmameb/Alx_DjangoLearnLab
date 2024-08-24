@@ -49,3 +49,12 @@ def search_books(request):
     # Safe query using Django ORM
     books = Book.objects.filter(title__icontains=query)
     return render(request, 'bookshelf/book_list.html', {'books': books})
+
+from django.http import HttpResponse
+from django.utils.deprecation import MiddlewareMixin
+
+
+class CSPMiddleware(MiddlewareMixin):
+    def process_response(self, request, response):
+        response['Content-Security-Policy'] = "default-src 'self';"
+        return response
