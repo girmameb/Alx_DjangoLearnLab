@@ -6,11 +6,14 @@ from django.db.models import Q
 from django.contrib.auth.decorators import permission_required
 from .forms import BookForm
 from .forms import ExampleForm
+from django.http import HttpResponse
+from django.utils.deprecation import MiddlewareMixin
+
 
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
     books = Book.objects.all()
-    return render(request, 'Template/book_list.html', {'books': books})
+    return render(request, 'bookshelf/book_list.html', {'books': books})
 
 
 @permission_required('bookshelf.can_create', raise_exception=True)
@@ -22,7 +25,7 @@ def book_create(request):
             return redirect('book_list')
     else:
         form = BookForm()
-    return render(request, 'Templates/bookshelf/form_example.html', {'form': form})
+    return render(request, 'bookshelf/form_example.html', {'form': form})
 
 
 @permission_required('bookshelf.can_edit', raise_exception=True)
@@ -35,7 +38,7 @@ def book_edit(request, pk):
             return redirect('book_list')
     else:
         form = BookForm(instance=book)
-    return render(request, 'Templates/bookshelf/form_example.html', {'form': form})
+    return render(request, 'bookshelf/form_example.html', {'form': form})
 @permission_required('bookshelf.can_delete', raise_exception=True)
 
 
@@ -44,18 +47,14 @@ def book_delete(request, pk):
     if request.method == 'POST':
         book.delete()
         return redirect('book_list')
-    return render(request, 'templates/bookshelf/book_confirm_delete.html', {'book': book})
+    return render(request, 'bookshelf/book_confirm_delete.html', {'book': book})
 
 
 def search_books(request):
     query = request.GET.get('q', '')
     # Safe query using Django ORM
     books = Book.objects.filter(title__icontains=query)
-    return render(request, 'Templates/book_list.html', {'books': books})
-
-from django.http import HttpResponse
-from django.utils.deprecation import MiddlewareMixin
-
+    return render(request, 'bookshelf/book_list.html', {'books': books})
 
 class CSPMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
@@ -72,6 +71,6 @@ class CSPMiddleware(MiddlewareMixin):
             form = ExampleForm()
         return render(request, 'bookshelf/form_example.html', {'form': form})
 
-    def book_list(request):
+    def book_list(self, request):
         books = Book.objects.all()
         return render(request, 'bookshelf/book_list.html', {'books': books})
