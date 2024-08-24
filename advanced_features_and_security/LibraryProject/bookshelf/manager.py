@@ -1,5 +1,5 @@
-# bookshelf/managers.py
 from django.contrib.auth.models import BaseUserManager
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
