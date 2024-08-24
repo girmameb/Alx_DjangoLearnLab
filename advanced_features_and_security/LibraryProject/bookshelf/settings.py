@@ -1,5 +1,11 @@
-AUTH_USER_MODEL = 'bookshelf.CustomUser'  # Custom user model reference
-INSTALLED_APPS = [
-       'bookshelf',  # Ensure this is listed
+# settings.py
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'bookshelf',  # Ensure 'bookshelf' is listed here
 ]

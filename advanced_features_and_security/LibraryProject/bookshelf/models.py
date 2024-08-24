@@ -9,7 +9,10 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()  # Assign the custom manager
 
+
 from django.contrib.auth.models import BaseUserManager
+
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
@@ -22,5 +25,5 @@ class CustomUserManager(BaseUserManager):
 
     def create_superuser(self, email, password=None):
         #extra_fields.setdefault('is_staff', True)
-       # extra_fields.setdefault('is_superuser', True)
+        # extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password)
