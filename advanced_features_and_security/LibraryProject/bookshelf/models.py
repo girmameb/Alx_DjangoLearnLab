@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .managers import CustomUserManager  # Import the custom manager
+from .manager import CustomUserManager  # Import the custom manager
+
 
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
