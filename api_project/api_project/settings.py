@@ -17,7 +17,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
     'rest_framework',
+    'rest_framework.authtoken',
     'api',
+
 ]
 
 # Application definition
@@ -32,6 +34,16 @@ INSTALLED_APPS = [
     'rest_framework',  # Ensure DRF is installed
     'api',
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
