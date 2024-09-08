@@ -2,7 +2,8 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from .models import Book
 from .serializers import BookSerializer
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 class BookListView(generics.ListCreateAPIView):
     """
     List all books or create a new book.
