@@ -1,3 +1,7 @@
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
+from api_project.api.serializers import BookSerializer
 from bookshelf import models
 
 
@@ -21,3 +25,21 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+class BookCreateView(generics.CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # Custom logic (e.g., setting additional fields)
+        serializer.save()
+
+class BookUpdateView(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_update(self, serializer):
+        # Custom logic (e.g., additional validation)
+        serializer.save()
