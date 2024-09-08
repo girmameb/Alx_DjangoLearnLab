@@ -20,6 +20,27 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
 ]
+INSTALLED_APPS = [
+    # other apps
+    'django_filters',
+]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+    ],
+    'SEARCH_PARAM': 'search',  # Optional: Customize the search query parameter
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+}
+
 
 DATABASES = {
     'default': {

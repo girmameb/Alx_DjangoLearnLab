@@ -1,18 +1,27 @@
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from .models import Book
 from .serializers import BookSerializer
 from rest_framework import generics
+import django_filters
+from rest_framework import generics
+from .models import Book
+from .serializers import BookSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
+class BookFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(lookup_expr='icontains')
+    author = django_filters.CharFilter(lookup_expr='icontains')
+    publication_year = django_filters.NumberFilter()
+
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'publication_year']
 
 class BookListView(generics.ListCreateAPIView):
-    """
-    List all books or create a new book.
-    - GET: Retrieve a list of books (public access).
-    - POST: Create a new book (authenticated users only).
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = BookFilter
+
 
 
 class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
