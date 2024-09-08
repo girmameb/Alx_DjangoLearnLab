@@ -5,7 +5,8 @@ import django_filters
 from rest_framework import generics
 from .models import Book
 from .serializers import BookSerializer
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework
+from django_filters import DjangoFilterBackend
 
 class BookFilter(django_filters.FilterSet):
     title = django_filters.CharFilter(lookup_expr='icontains')
