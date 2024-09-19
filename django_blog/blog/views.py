@@ -1,19 +1,19 @@
-import sys
-print([name for name in dir() if callable(globals()[name]) and not name.startswith("__")])
+# blog/views.py
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-
-# Create your views here.
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
 
+def home(request):
+    return render(request, 'home.html')  # Create a template for the homepage
+
+
 class CustomLoginView(LoginView):
-    template_name = 'tamplates/login.html'
+    template_name = 'templates/login.html'  # Ensure this path is correct
+  # Correct the template path if necessary
+
 
 class CustomLogoutView(LogoutView):
     template_name = 'logout.html'
@@ -31,7 +31,6 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
-
 
 @login_required
 def profile_view(request):
