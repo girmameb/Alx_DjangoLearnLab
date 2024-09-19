@@ -149,3 +149,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "blog/static",
 ]
+# django_blog/settings.py
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'blog/static')]
