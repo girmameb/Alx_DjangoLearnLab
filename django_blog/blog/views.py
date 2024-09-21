@@ -7,12 +7,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserCreationForm
 
 def home(request):
-    return render(request, 'home.html')  # Create a template for the homepage
+    return render(request, 'home.html')  # Create a templates for the homepage
 
 
 class CustomLoginView(LoginView):
     template_name = 'templates/login.html'  # Ensure this path is correct
-  # Correct the template path if necessary
+  # Correct the templates path if necessary
 
 
 class CustomLogoutView(LogoutView):

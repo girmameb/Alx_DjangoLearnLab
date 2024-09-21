@@ -11,10 +11,19 @@
     <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div>
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" id="id_username" required>
+        </div>
+        <div>
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" id="id_password" required>
+        </div>
         <button type="submit">Login</button>
     </form>
-<script src="{% static 'js/scripts.js' %}"></script>
-
+    {% if form.non_field_errors %}
+        <div>{{ form.non_field_errors }}</div>
+    {% endif %}
+    <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>

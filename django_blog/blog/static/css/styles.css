@@ -1,9 +1,4 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* blog/static/css/styles.css */
 
 body {
     font-family: Arial, sans-serif;
@@ -15,10 +10,6 @@ body {
     height: 100vh;
 }
 
-h2 {
-    margin-bottom: 20px;
-}
-
 form {
     background: white;
     padding: 20px;
@@ -26,9 +17,7 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"] {
+form input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -43,7 +32,6 @@ form button {
     padding: 10px;
     cursor: pointer;
     border-radius: 3px;
-    width: 100%;
 }
 
 form button:hover {
