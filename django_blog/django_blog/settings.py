@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/template')],  # Add this line
+        'DIRS': [os.path.join(BASE_DIR, 'blog/templates')],  # Add this line
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,3 +67,10 @@ import secrets
 print(secrets.token_urlsafe(50))
 
 SECRET_KEY = '12345678'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",  # Adjust this if needed
+    }
+}

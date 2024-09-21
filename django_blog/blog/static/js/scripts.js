@@ -15,3 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+$.ajaxSetup({
+    headers: {
+        'X-CSRFToken': '{{ csrf_token }}'
+    }
+});

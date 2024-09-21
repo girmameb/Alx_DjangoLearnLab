@@ -11,17 +11,17 @@ from .forms import CustomUserCreationForm  # Ensure this line is correct
 
 class PostListView(ListView):
     model = Post
-    template_name = 'posts/post_list.html'  # Specify your template
+    template_name = 'posts/post_list.html'  # Specify your templates
     context_object_name = 'posts'  # Default is 'object_list'
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'posts/post_detail.html'  # Specify your template
+    template_name = 'posts/post_detail.html'  # Specify your templates
     context_object_name = 'post'
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = 'posts/post_form.html'  # Specify your template
+    template_name = 'posts/post_form.html'  # Specify your templates
     fields = ['title', 'content']
 
     def form_valid(self, form):
@@ -30,7 +30,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    template_name = 'posts/post_form.html'  # Specify your template
+    template_name = 'posts/post_form.html'  # Specify your templates
     fields = ['title', 'content']
 
     def form_valid(self, form):
@@ -43,7 +43,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    template_name = 'posts/post_confirm_delete.html'  # Specify your template
+    template_name = 'posts/post_confirm_delete.html'  # Specify your templates
     success_url = reverse_lazy('post-list')  # Redirect after deletion
 
     def test_func(self):
@@ -54,7 +54,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'home.html')  # Create this template
+    return render(request, 'home.html')  # Create this templates
 # blog/views.py
 
 from django.shortcuts import render
@@ -65,7 +65,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 def register(request):
-    return render(request, 'register.html')  # Create this template
+    return render(request, 'register.html')  # Create this templates
 
 # blog/views.py
 
@@ -79,7 +79,7 @@ class CustomLoginView(LoginView):
     template_name = 'login.html'  # Adjust the path as necessary
 
 class CustomLogoutView(LogoutView):
-    template_name = 'logout.html'  # Ensure this template exists
+    template_name = 'logout.html'  # Ensure this templates exists
 
 def register(request):
     if request.method == 'POST':
