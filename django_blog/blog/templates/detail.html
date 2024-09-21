@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-$END$
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Published: {{ post.published_date }}</p>
+    <a href="{% url 'edit_post' post.pk %}">Edit</a>
+    <form action="{% url 'delete_post' post.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'post_list' %}">Back to Posts</a>
 </body>
 </html>
