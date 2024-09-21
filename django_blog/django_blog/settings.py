@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/templates')],  # Add this line
+        'DIRS': [os.path.join(BASE_DIR, 'blog/template')],  # Add this line
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

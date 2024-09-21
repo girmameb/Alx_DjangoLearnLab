@@ -8,10 +8,10 @@ from django.shortcuts import render
 
 
 class CustomLoginView(LoginView):
-    template_name = 'login.html'  # Ensure this matches your templates
+    template_name = 'login.html'  # Ensure this matches your template
 
 class CustomLogoutView(LogoutView):
-    template_name = 'logout.html'  # Ensure this matches your templates
+    template_name = 'logout.html'  # Ensure this matches your template
 
 def register(request):
     if request.method == 'POST':
