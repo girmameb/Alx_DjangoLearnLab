@@ -11,7 +11,7 @@ from .views import add_book, update_book, delete_book
 
 urlpatterns = [
    
-    # Login view with a custom template
+    # Login view with a custom templates
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
 
     # Logout view with redirect to login page
