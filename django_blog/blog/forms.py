@@ -27,13 +27,21 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']  # Only allow content to be set
-class PostForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False
-    )
+from django import forms
+from .models import Post
+from taggit.models import Tag
 
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tags']  # Include tags
+        fields = ['title', 'content', 'tags']  # Include tags field
+        widgets = {
+            'tags': forms.CheckboxSelectMultiple()  # You can customize this widget
+        }
+
+    def clean_tags(self):
+        # Optional: Clean and validate tags if needed
+        tags = self.cleaned_data.get('tags')
+        if not tags:
+            raise forms.ValidationError("At least one tag is required.")
+        return tags
