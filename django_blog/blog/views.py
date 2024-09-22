@@ -11,18 +11,18 @@ from .forms import CustomUserCreationForm  # Ensure this line is correct
 
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/post_list.html'  # Specify your templates
+    template_name = 'blog/templates/post/post_list.html'  # Specify your templates
     context_object_name = 'posts'  # Default is 'object_list'
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'  # Specify your templates
+    template_name = 'blog/templates/post/post_detail.html'  # Specify your templates
     context_object_name = 'blog'
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = 'blog/post_form.html'  # Specify your templates
+    template_name = 'blog/templates/post/post_form.html'  # Specify your templates
     fields = ['title', 'content']
 
     def form_valid(self, form):
