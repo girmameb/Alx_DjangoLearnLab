@@ -32,16 +32,29 @@ from .models import Post
 from taggit.models import Tag
 
 class PostForm(forms.ModelForm):
+    tags = forms.CharField(
+        max_length=200,
+        required=False,
+        help_text='Comma-separated list of tags.'
+    )
+
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tags']  # Include tags field
-        widgets = {
-            'tags': forms.CheckboxSelectMultiple()  # You can customize this widget
-        }
+        fields = ['title', 'content', 'tags']
 
     def clean_tags(self):
-        # Optional: Clean and validate tags if needed
-        tags = self.cleaned_data.get('tags')
-        if not tags:
-            raise forms.ValidationError("At least one tag is required.")
-        return tags
+        tags_input = self.cleaned_data.get('tags')
+        if tags_input:
+            # Split tags by commas and strip whitespace
+            tags = [tag.strip() for tag in tags_input.split(',')]
+            return tags
+        return []
+
+    def save(self, commit=True):
+        post = super().save(commit)
+        # Save the tags
+        for tag in self.cleaned_data['tags']:
+            post.tags.add(tag)  # This assumes tags are being added to the Post model directly
+        if commit:
+            post.save()
+        return post
