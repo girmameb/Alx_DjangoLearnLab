@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from django_blog.blog.models import Comment
+from django_blog.blog.models import Comment, Post, Tag
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -27,3 +27,13 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']  # Only allow content to be set
+class PostForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']  # Include tags

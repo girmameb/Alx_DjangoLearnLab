@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 
     # Your apps
     'blog',  # Your blog app
+    'taggit',  # Add this line for django-taggit
     # Add other apps here if necessary
 ]
 
