@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register, CustomLoginView, profile_view
+from .views import register, CustomLoginView, profile_view, CommentDeleteView, CommentUpdateView
 from .views import PostListView  # Make sure this is present
 
 from django.urls import path
@@ -29,6 +29,9 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(), name='create_post'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='edit_post'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='delete_post'),
+    path('comment/<int:comment_id>/edit/', CommentUpdateView.as_view(), name='edit_comment'),
+    path('comment/<int:comment_id>/delete/', CommentDeleteView.as_view(), name='delete_comment'),
+
 ]
 
 

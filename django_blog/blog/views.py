@@ -4,6 +4,11 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from .models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Post, Comment
+from .forms import CommentForm  # Ensure you create this form
+
 # blog/views.py
 
 from .forms import CustomUserCreationForm  # Ensure this line is correct
@@ -57,7 +62,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 # blog/views.py
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 
 def home(request):
@@ -119,3 +124,33 @@ def profile_view(request):
         user.save()
         return redirect('profile')
     return render(request, 'blog/profile.html', {'user': request.user})
+
+class CommentCreateView(LoginRequiredMixin, View):
+    def post(self, request, post_id):
+        post = get_object_or_404(Post, id=post_id)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect('list_posts')  # Redirect to the list of posts or post detail
+        return redirect('list_posts')  # Handle errors appropriately
+
+class CommentUpdateView(LoginRequiredMixin, View):
+    def post(self, request, comment_id):
+        comment = get_object_or_404(Comment, id=comment_id)
+        if request.user == comment.author:  # Ensure the user is the comment author
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+                return redirect('list_posts')  # Redirect after updating
+        return redirect('list_posts')  # Handle errors appropriately
+
+class CommentDeleteView(LoginRequiredMixin, View):
+    def post(self, request, comment_id):
+        comment = get_object_or_404(Comment, id=comment_id)
+        if request.user == comment.author:  # Ensure the user is the comment author
+            comment.delete()
+            return redirect('list_posts')  # Redirect after deletion
+        return redirect('list_posts')  # Handle errors appropriately

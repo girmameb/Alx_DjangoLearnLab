@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from django_blog.blog.models import Comment
+
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -15,3 +18,12 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+from django import forms
+from .models import Comment
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']  # Only allow content to be set
