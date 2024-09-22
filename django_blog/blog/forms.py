@@ -26,10 +26,13 @@ class CommentForm(forms.ModelForm):
         fields = ['content']  # Only allow content to be set
 
 # Post form with tagging functionality
+from taggit.forms import TagWidget  # Adjust this import based on your TagWidget location
+
 class PostForm(forms.ModelForm):
     tags = forms.CharField(
         max_length=200,
         required=False,
+        widget=TagWidget(),  # Use the TagWidget here
         help_text='Comma-separated list of tags.'
     )
 
@@ -46,8 +49,10 @@ class PostForm(forms.ModelForm):
 
     def save(self, commit=True):
         post = super().save(commit)
-        for tag in self.cleaned_data['tags']:
-            post.tags.add(tag)  # Assuming Post model uses TaggableManager
+        if 'tags' in self.cleaned_data and self.cleaned_data['tags']:
+            for tag in self.cleaned_data['tags']:
+                post.tags.add(tag)  # Assuming Post model uses TaggableManager
         if commit:
             post.save()
         return post
+
