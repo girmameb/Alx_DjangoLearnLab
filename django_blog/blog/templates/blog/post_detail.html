@@ -1,0 +1,6 @@
+<!-- blog/templates/posts/post_detail.html -->
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<a href="{% url 'blog-update' post.pk %}">Edit</a>
+<a href="{% url 'blog-delete' post.pk %}">Delete</a>
+<a href="{% url 'blog-list' %}">Back to List</a>

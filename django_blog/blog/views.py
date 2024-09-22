@@ -11,18 +11,18 @@ from .forms import CustomUserCreationForm  # Ensure this line is correct
 
 class PostListView(ListView):
     model = Post
-    template_name = 'post/post_list.html'  # Specify your templates
+    template_name = 'blog/post_list.html'  # Specify your templates
     context_object_name = 'posts'  # Default is 'object_list'
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'post/post_detail.html'  # Specify your templates
-    context_object_name = 'post'
+    template_name = 'blog/post_detail.html'  # Specify your templates
+    context_object_name = 'blog'
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = 'post/post_form.html'  # Specify your templates
+    template_name = 'blog/post_form.html'  # Specify your templates
     fields = ['title', 'content']
 
     def form_valid(self, form):
@@ -45,7 +45,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'posts/post_confirm_delete.html'  # Specify your templates
-    success_url = reverse_lazy('post-list')  # Redirect after deletion
+    success_url = reverse_lazy('blog-list')  # Redirect after deletion
 
     def test_func(self):
         post = self.get_object()
@@ -55,7 +55,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'post/home.html')  # Create this templates
+    return render(request, 'blog/home.html')  # Create this templates
 # blog/views.py
 
 from django.shortcuts import render
@@ -66,7 +66,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 def register(request):
-    return render(request, 'post/register.html')  # Create this templates
+    return render(request, 'blog/register.html')  # Create this templates
 
 # blog/views.py
 
@@ -77,10 +77,10 @@ from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm
 
 class CustomLoginView(LoginView):
-    template_name = 'post/login.html'  # Adjust the path as necessary
+    template_name = 'blog/login.html'  # Adjust the path as necessary
 
 class CustomLogoutView(LogoutView):
-    template_name = 'post/logout.html'  # Ensure this templates exists
+    template_name = 'blog/logout.html'  # Ensure this templates exists
 
 def register(request):
     if request.method == 'POST':
@@ -94,7 +94,7 @@ def register(request):
             return redirect('profile')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'post/register.html', {'form': form})
+    return render(request, 'blog/register.html', {'form': form})
 
 @login_required
 def profile_view(request):
@@ -103,4 +103,4 @@ def profile_view(request):
         user.email = request.POST.get('email')
         user.save()
         return redirect('profile')
-    return render(request, 'post/profile.html', {'user': request.user})
+    return render(request, 'blog/profile.html', {'user': request.user})
