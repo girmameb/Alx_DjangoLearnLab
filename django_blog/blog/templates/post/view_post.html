@@ -1,0 +1,19 @@
+<!-- blog/templates/view_post.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Published on: {{ post.published_date }}</p>
+    <a href="{% url 'list_posts' %}">Back to List</a>
+    {% if user.is_authenticated and post.author == user %}
+        <a href="{% url 'edit_post' post.pk %}">Edit</a>
+        <a href="{% url 'delete_post' post.pk %}">Delete</a>
+    {% endif %}
+</body>
+</html>
