@@ -55,7 +55,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'home.html')  # Create this templates
+    return render(request, 'post/home.html')  # Create this templates
 # blog/views.py
 
 from django.shortcuts import render
@@ -66,7 +66,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 def register(request):
-    return render(request, 'register.html')  # Create this templates
+    return render(request, 'post/register.html')  # Create this templates
 
 # blog/views.py
 
@@ -77,10 +77,10 @@ from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm
 
 class CustomLoginView(LoginView):
-    template_name = 'login.html'  # Adjust the path as necessary
+    template_name = 'post/login.html'  # Adjust the path as necessary
 
 class CustomLogoutView(LogoutView):
-    template_name = 'logout.html'  # Ensure this templates exists
+    template_name = 'post/logout.html'  # Ensure this templates exists
 
 def register(request):
     if request.method == 'POST':
@@ -94,7 +94,7 @@ def register(request):
             return redirect('profile')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'post/register.html', {'form': form})
 
 @login_required
 def profile_view(request):
@@ -103,4 +103,4 @@ def profile_view(request):
         user.email = request.POST.get('email')
         user.save()
         return redirect('profile')
-    return render(request, 'profile.html', {'user': request.user})
+    return render(request, 'post/profile.html', {'user': request.user})
