@@ -1,13 +1,17 @@
 from django.urls import path
-from .views import register, CustomLoginView, CustomLogoutView, profile_view
+from .views import register, CustomLoginView, profile_view
+from .views import PostListView  # Make sure this is present
+
+from django.urls import path
+from .views import register, profile_view, CustomLoginView, PostListView
 
 urlpatterns = [
-    path('login/', CustomLoginView.as_view(), name='login'),
-    path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('register/', register, name='register'),
-    path('profile/', profile_view, name='profile'),  # This should point to the profile_view in views.py
+    path('profile/', profile_view, name='profile'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('', PostListView.as_view(), name='list_posts'),  # This should be defined
+    # Other URL patterns...
 ]
-
 
 from django.urls import path
 from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
@@ -26,3 +30,5 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='edit_post'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='delete_post'),
 ]
+
+

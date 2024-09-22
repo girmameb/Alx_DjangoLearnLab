@@ -1,7 +1,19 @@
-<h2>Profile</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="email">Email:</label>
-    <input type="email" name="email" value="{{ user.email }}">
-    <button type="submit">Update</button>
-</form>
+<!-- blog/templates/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>{{ user.username }}'s Profile</h1>
+    <p>Email: {{ user.email }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <label for="email">Change Email:</label>
+        <input type="email" name="email" id="email" value="{{ user.email }}">
+        <button type="submit">Update</button>
+    </form>
+<a href="{% url 'list_posts' %}">View All Posts</a>
+</body>
+</html>

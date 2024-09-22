@@ -43,6 +43,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'blog', 'static')]
 
+# In your settings.py
+LOGIN_REDIRECT_URL = '/profile/'  # or 'profile' if using named URLs
+
 
 # django_blog/settings.py
 
