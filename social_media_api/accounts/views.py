@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from .serializers import UserSerializer, LoginSerializer
+from .models import CustomUser  # Import your custom user model
 
 User = get_user_model()  # Add this line to define User
 
@@ -24,7 +25,7 @@ class LoginView(APIView):
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from .models import CustomUser  # Ensure you import your custom user model
+from .models import CustomUser
 
 class FollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
