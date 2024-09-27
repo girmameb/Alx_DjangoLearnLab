@@ -26,19 +26,33 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import CustomUser
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import CustomUser  # Make sure this imports your custom user model
+
 
 class FollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
+        # Get the user to follow
         user_to_follow = get_object_or_404(CustomUser, id=user_id)
+
+        # Add user to following
         request.user.following.add(user_to_follow)
+
         return Response({"message": f"You are now following {user_to_follow.username}"})
+
 
 class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
+        # Get the user to unfollow
         user_to_unfollow = get_object_or_404(CustomUser, id=user_id)
+
+        # Remove user from following
         request.user.following.remove(user_to_unfollow)
+
         return Response({"message": f"You have unfollowed {user_to_unfollow.username}"})
