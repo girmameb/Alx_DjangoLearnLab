@@ -4,6 +4,12 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from .models import Post
+from .serializers import PostSerializer
+from accounts.models import CustomUser  # Import your custom user model
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -26,13 +32,19 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.filter(author=self.request.user)
-from rest_framework import generics, permissions
-from .models import Post
-from .serializers import PostSerializer
+
+
 
 class FeedView(generics.ListAPIView):
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Post.objects.filter(author__in=self.request.user.following.all()).order_by('-created_at')
+        # Get the current user
+        user = self.request.user
+
+        # Get users that the current user is following
+        following_users = user.following.all()
+
+        # Filter posts by authors in the following_users queryset
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
