@@ -1,8 +1,17 @@
 from django.db import models
-# Create your models here.
-from django.db import models
 from django.conf import settings
 from accounts.models import CustomUser  # Import your custom user model
+
+class Post(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
@@ -15,12 +24,9 @@ class Comment(models.Model):
         return f"Comment by {self.author.username} on {self.post.title}"
 
 
-class Post(models.Model):
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class Like(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)  # Add post ForeignKey to Like
 
     def __str__(self):
-        return self.title
+        return f"{self.user.username} liked a post"
