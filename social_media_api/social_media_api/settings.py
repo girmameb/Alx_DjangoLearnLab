@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from django.contrib import staticfiles
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -130,6 +132,17 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+import os
+
+# Define the base directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'  # URL to access static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory to collect static files
+
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
