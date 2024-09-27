@@ -137,3 +137,8 @@ SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_SSL_REDIRECT = True  # Ensure your app uses HTTPS
+
+import os
+
+# Default port for development
+PORT = os.environ.get('PORT', '8000')  # Default to 8000 if not set
